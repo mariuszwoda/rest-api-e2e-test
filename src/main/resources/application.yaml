@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: rest-api-e2e-test
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+    root: info
+    web: debug
+
+
