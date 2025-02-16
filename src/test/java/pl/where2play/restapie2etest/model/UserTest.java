@@ -5,8 +5,11 @@ import org.junit.jupiter.api.Test;
 import pl.where2play.restapie2etest.testdata.UserTestData0;
 import pl.where2play.restapie2etest.testdata.UserTestData1;
 import pl.where2play.restapie2etest.testdata.UserTestData4;
+import pl.where2play.restapie2etest.testdata.UserTestDataStatic;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static pl.where2play.restapie2etest.testdata.UserTestDataStatic.adminJson;
+import static pl.where2play.restapie2etest.testdata.UserTestDataStatic.withDepartment;
 
 @Slf4j
 class UserTest {
@@ -47,8 +50,8 @@ class UserTest {
         User hrUser = UserTestData1.withDepartment("HR");
 
         String userJson = UserTestData1.defaultUserJson();
-//        String hrUserJson = UserTestData1.userJson(UserTestData1.withDepartment("HR"));
-        String hrUserJson = UserTestData1.userJson(defaultUser);
+        String hrUserJson = UserTestData1.userJson(UserTestData1.withDepartment("HR"));
+//        String hrUserJson = UserTestData1.userJson(defaultUser);
         String adminJson = UserTestData1.adminUserJson();
 
         log.info("defaultUser: {}", defaultUser);
@@ -90,5 +93,20 @@ class UserTest {
         //then
         assertNull(adminUser.getAddress());
         assertTrue( hrUser.getDepartment().contains("HR") );
+    }
+
+    @Test
+    void testStatuc() {
+        //given
+
+        User adminUser = withDepartment("HR");
+        String json = adminJson();
+
+        log.info("adminUser: {}", adminUser);
+        log.info("json: {}", json);
+
+        //when
+        //then
+        assertNull(adminUser.getAddress());
     }
 }
