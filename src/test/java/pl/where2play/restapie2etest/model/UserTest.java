@@ -2,10 +2,7 @@ package pl.where2play.restapie2etest.model;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import pl.where2play.restapie2etest.testdata.UserTestData0;
-import pl.where2play.restapie2etest.testdata.UserTestData1;
-import pl.where2play.restapie2etest.testdata.UserTestData4;
-import pl.where2play.restapie2etest.testdata.UserTestDataStatic;
+import pl.where2play.restapie2etest.testdata.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static pl.where2play.restapie2etest.testdata.UserTestDataStatic.adminJson;
@@ -109,4 +106,49 @@ class UserTest {
         //then
         assertNull(adminUser.getAddress());
     }
+
+        @Test
+        void createBasicUser() {
+            User user = TestData.build(User.class, u -> {});
+            // Test with default user
+        }
+
+        @Test
+        void createAdminUser() {
+            User admin = TestData.build(User.class, u -> {
+                u.setRole("ADMIN");
+                u.setEmail("admin@example.com");
+            });
+        }
+
+//    public class ProductControllerTest {
+//        @Test
+//        void createDiscountedProduct() {
+//            Product product = TestData.build(Product.class, p -> {
+//                p.setPrice(49.99);
+//                p.setName("Spring Framework Masterclass");
+//            });
+//        }
+//    }
+
+//    // In OrderControllerTest
+//    Order order = TestData.build(Order.class, o -> {
+//        o.setUser(TestData.build(User.class));  // Reuse user creation
+//        o.setProduct(TestData.build(Product.class));
+//    });
+
+//    Compile-time checks through generics:
+//    TestData.build(User.class)  // Returns User type
+//            TestData.build(Product.class)  // Returns Product type
+
+
+    // In tests:
+    User user = TestData.userTemplate()
+            .firstName("John")
+            .build();
+
+    // In test:
+//    Order order = TestData.createOrderWithUser(u ->
+//            u.setEmail("special.user@domain.com")
+//    );
 }
