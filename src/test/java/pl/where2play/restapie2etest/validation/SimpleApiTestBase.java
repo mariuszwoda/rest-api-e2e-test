@@ -2,7 +2,6 @@ package pl.where2play.restapie2etest.validation;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-//import io.restassured.path.json.JsonPath;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -12,8 +11,6 @@ import org.junit.jupiter.api.TestInstance;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-//import static org.assertj.core.api.Assertions.assertThat;
 
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -99,6 +96,20 @@ public class SimpleApiTestBase {
     //    "count", "*number*",   // Validate numeric type
     //    "email", "regex:.+@.+\\..+" // Validate email pattern
     //)
+
+    protected void validateResponse2(Response response, int expectedStatus,
+                                    Map<String, Object> expectedFields) {
+        response.then().statusCode(expectedStatus);
+
+        JsonPath jsonPath = response.jsonPath();
+        expectedFields.forEach((path, expectedValue) -> {
+            if (expectedValue instanceof String && expectedValue.equals("success")) {
+                assertThat(jsonPath.get(path)).isEqualTo("success");
+            } else {
+                assertThat(jsonPath.get(path)).isEqualTo(expectedValue);
+            }
+        });
+    }
 
 }
 
