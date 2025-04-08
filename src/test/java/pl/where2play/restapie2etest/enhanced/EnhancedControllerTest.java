@@ -1,5 +1,6 @@
 package pl.where2play.restapie2etest.enhanced;
 
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
